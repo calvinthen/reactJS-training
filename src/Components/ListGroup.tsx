@@ -1,9 +1,14 @@
 import { MouseEvent, useState } from "react";
+interface ListGroupProps{
+    items : string[];
+    heading: string
+    onSelectedItem: (item:string) => void;
+}
 
-function ListGroup()
+function ListGroup({items, heading, onSelectedItem} : ListGroupProps)
 {
-    let items = ["New York", "SA", "Tokyo", "London", "Jakarta"];
     const [selectedIndex, setSelectedIndex] = useState(-1);
+   
 
     const handleClick = (event:MouseEvent) => console.log(event.target); 
     return (
@@ -14,7 +19,9 @@ function ListGroup()
                 {items.map((item, index)=> ( 
                     <li className={selectedIndex === index ? 'list-group-item active' : 'list-group-item' } 
                     key={item} 
-                    onClick={() => {setSelectedIndex(index);}} > 
+                    onClick={() => {setSelectedIndex(index);
+                        onSelectedItem(item);
+                    }} > 
                         {item}
                     </li>
                 ))}
